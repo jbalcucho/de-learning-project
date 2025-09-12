@@ -8,6 +8,7 @@ DATA_DIR = ROOT_DIR / "data"
 
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
+GOLD_DATA_DIR = DATA_DIR / "gold"
 
 LINKS_RAW_DIR = RAW_DATA_DIR / "links.csv"
 MOVIES_RAW_DIR = RAW_DATA_DIR / "movies.csv"
@@ -17,6 +18,8 @@ TAGS_RAW_DIR = RAW_DATA_DIR / "tags.csv"
 MOVIES_CLEANED_DIR = PROCESSED_DATA_DIR / "movies_cleaned.json"
 MOVIE_ID_TITLE_YEAR_DIR = PROCESSED_DATA_DIR / "movie_id_title_year.csv"
 UNIQUE_GENRES_DIR = PROCESSED_DATA_DIR / "unique_genres.txt"
+
+MOVIE_ANALYTICS_DIR = GOLD_DATA_DIR / "movie_analytics.csv"
 
 # Code files
 SRC_DIR = ROOT_DIR / "src"
