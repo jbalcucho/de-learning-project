@@ -1,22 +1,24 @@
 # src/api.py
-from flask import Flask, jsonify, request
+import config
 import pandas as pd
+from flask import Flask, jsonify, request
 
 # Create the Flask application object
 app = Flask(__name__)
 
 # --- Load data once when the app starts ---
-DATA_FILE = "data/processed/movies_cleaned.json"
 try:
     print("Loading data for the API...")
-    movies_df = pd.read_json(DATA_FILE)
+    movies_df = pd.read_json(config.MOVIES_CLEANED_DIR)
     # Convert year to a numeric type that can handle NaNs, then to integer
     movies_df["year"] = pd.to_numeric(movies_df["year"], errors="coerce").astype(
         "Int64"
     )
     print("✅ Data loaded successfully.")
 except FileNotFoundError:
-    print(f"⚠️  Warning: Data file not found at {DATA_FILE}. API endpoints may fail.")
+    print(
+        f"⚠️  Warning: Data file not found at {config.MOVIES_CLEANED_DIR}. API endpoints may fail."
+    )
     movies_df = pd.DataFrame()  # Create an empty DataFrame
 
 

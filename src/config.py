@@ -27,3 +27,4 @@ TESTS_DIR = ROOT_DIR / "tests"
 # Report files
 REPORTS_DIR = ROOT_DIR / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
+GENRE_DISTRIBUTION_DIR = FIGURES_DIR / "genre_distribution.png"

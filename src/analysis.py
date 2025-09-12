@@ -1,7 +1,8 @@
 # src/analysis.py
+import os
+import config
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
 
 
 def load_cleaned_data(file_path: str) -> pd.DataFrame:
@@ -44,17 +45,14 @@ def generate_genre_distribution_plot(df: pd.DataFrame, output_path: str):
 
     # 4. Save the plot to a file
     plt.savefig(output_path, bbox_inches="tight")
-    print(f"✅ Plot saved successfully to {output_path}")
+    print(f"Plot saved successfully to {output_path}")
     plt.close(fig)
 
 
 if __name__ == "__main__":
-    CLEANED_DATA_FILE = "data/processed/movies_cleaned.json"
-    PLOT_OUTPUT_FILE = "reports/figures/genre_distribution.png"
-
     # Load data
-    movies_df = load_cleaned_data(CLEANED_DATA_FILE)
+    movies_df = load_cleaned_data(config.MOVIES_CLEANED_DIR)
 
     # Generate and save the plot
     if movies_df is not None:
-        generate_genre_distribution_plot(movies_df, PLOT_OUTPUT_FILE)
+        generate_genre_distribution_plot(movies_df, config.GENRE_DISTRIBUTION_DIR)
