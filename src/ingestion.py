@@ -1,8 +1,9 @@
 # src/ingestion.py
-import csv
-import json
 import re
 import os
+import csv
+import json
+import config
 
 # --- LOADING AND VALIDATION FUNCTIONS ---
 
@@ -92,41 +93,32 @@ def save_to_csv(data: list, file_path: str, headers: list):
 
 # --- Main execution block ---
 if __name__ == "__main__":
-    RAW_DATA_FILE = "data/raw/movies.csv"
-    PROCESSED_DIR = "data/processed"
 
     print("Loading and validating raw movie data...")
-    movies_raw = load_movie_data(RAW_DATA_FILE)
+    movies_raw = load_movie_data(config.MOVIES_RAW_DIR)
 
     if movies_raw:
         print("Transforming data...")
         unique_genres = get_unique_genres(movies_raw)
         transformed_movies = transform_movie_records(movies_raw)
+        os.makedirs(config.PROCESSED_DATA_DIR, exist_ok=True)
+        print(f"Saving processed files to {config.PROCESSED_DATA_DIR}...")
 
-        os.makedirs(PROCESSED_DIR, exist_ok=True)
-
-        print(f"Saving processed files to {PROCESSED_DIR}...")
-
-        # 1. Save the fully cleaned and transformed movie data
         save_to_json(
-            transformed_movies, os.path.join(PROCESSED_DIR, "movies_cleaned.json")
+            transformed_movies,
+            config.MOVIES_CLEANED_DIR,
         )
 
-        # 2. Save the set of unique genres
-        save_to_txt(unique_genres, os.path.join(PROCESSED_DIR, "unique_genres.txt"))
+        save_to_txt(unique_genres, config.UNIQUE_GENRES_DIR)
 
-        # 3. Save a simple movieId-title-year version to CSV
-        # We select only the keys we want for the CSV
         movies_for_csv = [
             {"movieId": m["movieId"], "title": m["title"], "year": m["year"]}
             for m in transformed_movies
         ]
         save_to_csv(
             movies_for_csv,
-            "data/processed/movie_id_title_year.csv",
+            config.MOVIE_ID_TITLE_YEAR_DIR,
             headers=["movieId", "title", "year"],
         )
 
-        print(
-            "\n✅  Process complete! All three files have been generated in 'data/processed'."
-        )
+        print("Process complete! All three files have been generated.")
