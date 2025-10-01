@@ -2,3 +2,11 @@ pandas
 pytest
 Flask
 matplotlib
+psycopg
+psycopg2
+psycopg-binary
+psycopg2-binary
+python-dotenv
+boto3
+azure-identity
+azure-storage-blob

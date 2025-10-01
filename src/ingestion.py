@@ -4,11 +4,12 @@ import os
 import csv
 import json
 import config
+from pathlib import Path
 
 # --- LOADING AND VALIDATION FUNCTIONS ---
 
 
-def load_movie_data(file_path: str) -> list:
+def load_movie_data(file_path: Path) -> list:
     """
     Loads movie data from a CSV, handling file errors and validating headers.
     """
@@ -70,20 +71,20 @@ def transform_movie_records(movie_list: list) -> list:
 # --- SAVING FUNCTIONS ---
 
 
-def save_to_json(data: list, file_path: str):
+def save_to_json(data: list, file_path: Path):
     """Saves a list of dictionaries to a JSON file."""
     with open(file_path, mode="w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
 
-def save_to_txt(data: set, file_path: str):
+def save_to_txt(data: set, file_path: Path):
     """Saves a set to a text file, with one item per line."""
     with open(file_path, mode="w", encoding="utf-8") as f:
         for item in sorted(list(data)):
             f.write(f"{item}\n")
 
 
-def save_to_csv(data: list, file_path: str, headers: list):
+def save_to_csv(data: list, file_path: Path, headers: list):
     """Saves a list of dictionaries or tuples to a CSV file."""
     with open(file_path, mode="w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=headers)
