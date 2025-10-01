@@ -2,10 +2,11 @@
 import os
 import config
 import pandas as pd
+from pathlib import Path
 import matplotlib.pyplot as plt
 
 
-def load_cleaned_data(file_path: str) -> pd.DataFrame:
+def load_cleaned_data(file_path: Path) -> pd.DataFrame | None:
     """Loads the cleaned movie data from a JSON file into a pandas DataFrame."""
     try:
         return pd.read_json(file_path)
@@ -15,7 +16,7 @@ def load_cleaned_data(file_path: str) -> pd.DataFrame:
         return None
 
 
-def generate_genre_distribution_plot(df: pd.DataFrame, output_path: str):
+def generate_genre_distribution_plot(df: pd.DataFrame, output_path: Path):
     """
     Generates and saves a bar chart of the top 10 movie genres.
     """
